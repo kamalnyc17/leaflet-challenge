@@ -44,7 +44,7 @@ const createMap = (earthquakes) => {
     "Light Map": lightMap
   };
 
-  // tectonic plate layer
+  // Tectonic plate layer
   let tectonicPlates = new L.LayerGroup();
 
   // Creating overlay object
@@ -53,7 +53,7 @@ const createMap = (earthquakes) => {
     Tectonic_Plates: tectonicPlates
   };
 
-  // Create our map, giving it the streetmap and earthquakes layers to display on load
+  // Initializing our map
   const myMap = L.map("map", {
     center: [41.881832, -87.62317],
     zoom: 2.5,
@@ -74,27 +74,26 @@ const createMap = (earthquakes) => {
     collapsed: false
   }).addTo(myMap);
 
-// Create legend
-let legend = L.control({
-  position: 'bottomright'
-});
-legend.onAdd = (myMap) => {
+  // Create legend
+  let legend = L.control({
+    position: 'bottomright'
+  });
+  legend.onAdd = (myMap) => {
 
-  const div = L.DomUtil.create('div', 'info legend'),
-  grades = [0, 1, 2, 3, 4, 5],
-  labels = [];
+    const div = L.DomUtil.create('div', 'info legend'),
+    grades = [0, 1, 2, 3, 4, 5],
+    labels = [];
 
-  // loop through our density intervals and generate a label with a colored square for each interval
-  for (let i = 0; i < grades.length; i++) {
-    let legendLine = '<i style="background-color:' + getColor(grades[i] + 1) + '; padding: 2px 20px; font-weight: bold">' +
-    ' ' + grades[i] + (grades[i + 1] ? ' &ndash; ' + grades[i + 1] +  '</i><br>' : ' +');
-    div.innerHTML += legendLine        
-  }
-  return div;
-};
-legend.addTo(myMap);
-
+    for (let i = 0; i < grades.length; i++) {
+      let legendLine = '<i style="background-color:' + getColor(grades[i] + 1) + '; padding: 2px 20px; font-weight: bold">' +
+      ' ' + grades[i] + (grades[i + 1] ? ' &ndash; ' + grades[i + 1] +  '</i><br>' : ' +');
+      div.innerHTML += legendLine        
+    }
+    return div;
+  };
+  legend.addTo(myMap);
 }
+
 // legend color
 function getColor(d) {
   return d > 5 ? '#F30' :

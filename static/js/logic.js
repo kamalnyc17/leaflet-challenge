@@ -7,10 +7,10 @@ d3.json(earthquakeURL, (data) => createFeatures(data.features));
 
 // Create GeoJSON layer to design the circle and popups
 const createFeatures = (earthquakeData) => {
-  var earthquakes = L.geoJson(earthquakeData, {
+  const earthquakes = L.geoJson(earthquakeData, {
     onEachFeature: (feature, layer) => {
-      layer.bindPopup("<h5>" + feature.properties.place + "<br> Magnitude: " + feature.properties.mag +
-      "</h5><p>" + new Date(feature.properties.time) + "</p>");
+      layer.bindPopup("<h3 style='margin:2px'>" + feature.properties.place + "</h3><h5 style='margin:2px'> Magnitude: " + feature.properties.mag +
+      "</h5><p style='margin:2px'>" + new Date(feature.properties.time) + "</p>");
     },
     pointToLayer: (feature, latlng) => {
       return new L.circle(latlng,

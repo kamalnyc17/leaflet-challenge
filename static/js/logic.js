@@ -57,7 +57,7 @@ const createMap = (earthquakes) => {
   const myMap = L.map("map", {
     center: [41.881832, -87.62317],
     zoom: 2.5,
-    layers: [lightMap, earthquakes, tectonicPlates]
+    layers: [outdoorMap, earthquakes, tectonicPlates]
   });
 
    // Add Fault lines data
@@ -95,12 +95,8 @@ const createMap = (earthquakes) => {
 }
 
 // legend color
-function getColor(d) {
-  return d > 5 ? '#F30' :
-  d > 4  ? '#F60' :
-  d > 3  ? '#F90' :
-  d > 2  ? '#FC0' :
-  d > 1   ? '#FF0' :
-  '#9F3';          
-}
-const getRadius = (value) => value*40000
+const getColor = (d) => d > 5 ? '#F30' : d > 4  ? '#F60' : d > 3  ? '#F90' :
+                        d > 2  ? '#FC0' : d > 1   ? '#FF0' : '#9F3'
+
+// circle size
+const getRadius = (value) => value*50000

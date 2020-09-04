@@ -77,18 +77,17 @@ const createMap = (earthquakes) => {
 let legend = L.control({
   position: 'bottomright'
 });
-legend.onAdd = function (myMap) {
+legend.onAdd = (myMap) => {
 
-  var div = L.DomUtil.create('div', 'info legend'),
-    grades = [0, 1, 2, 3, 4, 5],
-    labels = [];
+  const div = L.DomUtil.create('div', 'info legend'),
+  grades = [0, 1, 2, 3, 4, 5],
+  labels = [];
 
   // loop through our density intervals and generate a label with a colored square for each interval
-  for (var i = 0; i < grades.length; i++) {
-    let legandLine = '<i style="background-color:' + getColor(grades[i] + 1) + '; padding: 2px 20px; font-weight: bold">' +
+  for (let i = 0; i < grades.length; i++) {
+    let legendLine = '<i style="background-color:' + getColor(grades[i] + 1) + '; padding: 2px 20px; font-weight: bold">' +
     ' ' + grades[i] + (grades[i + 1] ? ' &ndash; ' + grades[i + 1] +  '</i><br>' : ' +');
-    console.log("legandLine ", legandLine)
-    div.innerHTML += legandLine        
+    div.innerHTML += legendLine        
   }
   return div;
 };

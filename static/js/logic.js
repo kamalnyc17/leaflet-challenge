@@ -99,4 +99,4 @@ const getColor = (d) => d > 5 ? '#F30' : d > 4  ? '#F60' : d > 3  ? '#F90' :
                         d > 2  ? '#FC0' : d > 1   ? '#FF0' : '#9F3'
 
 // circle size
-const getRadius = (value) => value*50000
+const getRadius = (mag) => mag * 50000

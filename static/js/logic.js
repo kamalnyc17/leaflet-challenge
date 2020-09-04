@@ -1,24 +1,18 @@
-// URL for Earthquake GeoJson data
-var earthquakeURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
+// URL for data source
+const earthquakeURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
+const TectonicPlatesURL = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"
 
-// URL for Tectonic_Plates GeoJson data
-var TectonicPlatesURL = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"
+// Perform initial GET request to fetch earthquake data
+d3.json(earthquakeURL, (data) => createFeatures(data.features));
 
-// Perform a GET request to the Earthquake query URL. 
-// Once response is received, forward the data.features object to the createFeatures function
-d3.json(earthquakeURL, function(data) {
-    createFeatures(data.features); 
-});
-
-// Create GeoJSON layer containing the features array on the earthquakeData object
-// Run the onEachFeature function once for each record
-function createFeatures(earthquakeData) {
+// Create GeoJSON layer to design the circle and popups
+const createFeatures = (earthquakeData) => {
   var earthquakes = L.geoJson(earthquakeData, {
-    onEachFeature: function (feature, layer){
+    onEachFeature: (feature, layer) => {
       layer.bindPopup("<h5>" + feature.properties.place + "<br> Magnitude: " + feature.properties.mag +
       "</h5><p>" + new Date(feature.properties.time) + "</p>");
     },
-    pointToLayer: function (feature, latlng) {
+    pointToLayer: (feature, latlng) => {
       return new L.circle(latlng,
         {radius: getRadius(feature.properties.mag),
           fillColor: getColor(feature.properties.mag),
@@ -29,7 +23,7 @@ function createFeatures(earthquakeData) {
       })
     }
   });
-  createMap(earthquakes) // Send earthquakes layer to the createMap function
+  createMap(earthquakes)
 }
 
 

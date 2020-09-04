@@ -85,15 +85,17 @@ legend.onAdd = function (myMap) {
 
   // loop through our density intervals and generate a label with a colored square for each interval
   for (var i = 0; i < grades.length; i++) {
-    div.innerHTML +=
-      '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-      grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    let legandLine = '<i style="background-color:' + getColor(grades[i] + 1) + '; padding: 2px 20px; font-weight: bold">' +
+    ' ' + grades[i] + (grades[i + 1] ? ' &ndash; ' + grades[i + 1] +  '</i><br>' : ' +');
+    console.log("legandLine ", legandLine)
+    div.innerHTML += legandLine        
   }
   return div;
 };
 legend.addTo(myMap);
 
 }
+// legend color
 function getColor(d) {
   return d > 5 ? '#F30' :
   d > 4  ? '#F60' :
